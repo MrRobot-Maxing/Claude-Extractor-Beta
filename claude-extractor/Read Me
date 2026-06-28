@@ -1,0 +1,36 @@
+  Claude Archival & Code Extraction Suite
+
+  Overview
+
+A Chrome/Firefox extension (Manifest V3) that injects a floating control panel
+into claude.ai, enabling power users to:
+
+1.   Export conversations to Markdown** — Full chat history with YAML
+   frontmatter metadata, perfect for Obsidian vaults or documentation archives
+2.   Extract all code blocks as a ZIP archive** — Every code snippet becomes
+   a properly named file with the correct extension, bundled into a
+   downloadable `.zip`
+
+ Installation (Chrome — Unpacked Extension)
+
+    Prerequisites
+
+1. Download JSZip (v3.10+) from https://github.com/Stuk/jszip/releases
+2. Place the minified file at `lib/jszip.min.js`
+3. Create placeholder icon files (16x16, 48x48, 128x128 PNG) in `icons/`
+
+    Steps
+
+1. Clone or unzip this project into a local directory:
+
+claude-extractor/
+├── manifest.json
+├── content_script.js
+├── export_utils.js
+├── styles.css
+├── lib/
+│ └── jszip.min.js
+└── icons/
+├── icon16.png
+├── icon48.png
+└── icon128.png
