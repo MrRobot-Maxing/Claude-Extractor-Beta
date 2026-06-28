@@ -1,1 +1,323 @@
 
+/**
+ * =============================================================================
+ * CLAUDE ARCHIVAL & CODE EXTRACTION SUITE — External Stylesheet
+ * =============================================================================
+ *
+ * NOTE: This stylesheet is provided as a reference and fallback. In production,
+ * all styles are injected directly into the closed Shadow DOM via the
+ * UIManager._getStyles() method in content_script.js. This prevents any
+ * possibility of CSS leakage or collision with Anthropic's stylesheet.
+ *
+ * This file is listed in web_accessible_resources for potential future use
+ * (e.g., if we switch to constructable stylesheets or CSS module imports).
+ *
+ * See content_script.js UIManager._getStyles() for the canonical styles.
+ */
+
+/* ============================================================
+   HOST ELEMENT — Fixed positioning, highest z-index
+   ============================================================ */
+:host {
+  all: initial;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2147483647;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+               'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #e2e8f0;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================================================
+   FAB — Floating Action Button
+   ============================================================ */
+.extractor-fab {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  box-shadow:
+    0 4px 14px rgba(217, 119, 6, 0.4),
+    0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.extractor-fab:hover {
+  transform: scale(1.08);
+  box-shadow:
+    0 6px 20px rgba(217, 119, 6, 0.5),
+    0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.extractor-fab:active {
+  transform: scale(0.96);
+}
+
+.extractor-fab.is-open {
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+  box-shadow:
+    0 4px 14px rgba(107, 114, 128, 0.4),
+    0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.extractor-fab svg {
+  width: 24px;
+  height: 24px;
+  fill: white;
+  transition: transform 0.3s ease;
+}
+
+.extractor-fab.is-open svg {
+  transform: rotate(45deg);
+}
+
+/* ============================================================
+   PANEL — Slide-up dialog
+   ============================================================ */
+.extractor-panel {
+  position: absolute;
+  bottom: 68px;
+  right: 0;
+  width: 300px;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 16px;
+  padding: 0;
+  opacity: 0;
+  transform: translateY(12px) scale(0.95);
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.extractor-panel.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
+
+/* ============================================================
+   PANEL HEADER
+   ============================================================ */
+.panel-header {
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid #334155;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.panel-header-icon {
+  width: 20px;
+  height: 20px;
+  fill: #d97706;
+  flex-shrink: 0;
+}
+
+.panel-header h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #f1f5f9;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   PANEL BODY & BUTTONS
+   ============================================================ */
+.panel-body {
+  padding: 16px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.export-btn {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.export-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.export-btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.export-btn .btn-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.export-btn .btn-label {
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.export-btn .btn-desc {
+  font-size: 11px;
+  opacity: 0.7;
+  line-height: 1.3;
+}
+
+/* Markdown Button */
+.export-btn--md {
+  background: linear-gradient(135deg, #1e3a5f 0%, #172554 100%);
+  color: #93c5fd;
+  border-color: #1e40af33;
+}
+
+.export-btn--md:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+  border-color: #3b82f655;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+}
+
+.export-btn--md svg {
+  fill: #60a5fa;
+}
+
+/* ZIP Button */
+.export-btn--zip {
+  background: linear-gradient(135deg, #14532d 0%, #052e16 100%);
+  color: #86efac;
+  border-color: #16a34a33;
+}
+
+.export-btn--zip:hover:not(:disabled) {
+  background: linear-gradient(135deg, #15803d 0%, #14532d 100%);
+  border-color: #22c55e55;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.25);
+}
+
+.export-btn--zip svg {
+  fill: #4ade80;
+}
+
+/* ============================================================
+   STATUS BAR
+   ============================================================ */
+.panel-status {
+  padding: 0 20px 16px;
+  font-size: 11px;
+  color: #94a3b8;
+  min-height: 18px;
+  transition: color 0.2s ease;
+}
+
+.panel-status.is-error {
+  color: #f87171;
+}
+
+.panel-status.is-success {
+  color: #4ade80;
+}
+
+/* ============================================================
+   SPINNER
+   ============================================================ */
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================================
+   TOOLTIP
+   ============================================================ */
+.fab-tooltip {
+  position: absolute;
+  right: 64px;
+  bottom: 50%;
+  transform: translateY(50%);
+  background: #0f172a;
+  color: #e2e8f0;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border: 1px solid #334155;
+}
+
+.extractor-fab:hover + .fab-tooltip,
+.extractor-fab:focus + .fab-tooltip {
+  opacity: 1;
+}
+
+.extractor-fab.is-open:hover + .fab-tooltip,
+.extractor-fab.is-open:focus + .fab-tooltip {
+  opacity: 0;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 480px) {
+  :host {
+    bottom: 16px;
+    right: 16px;
+  }
+
+  .extractor-panel {
+    width: 260px;
+  }
+}
+
+/* ============================================================
+   ACCESSIBILITY
+   ============================================================ */
+.extractor-fab:focus-visible,
+.export-btn:focus-visible {
+  outline: 2px solid #d97706;
+  outline-offset: 2px;
+}
