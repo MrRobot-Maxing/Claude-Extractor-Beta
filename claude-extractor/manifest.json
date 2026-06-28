@@ -1,1 +1,42 @@
+{
+  "manifest_version": 3,
+  "name": "Claude Archival & Code Extraction Suite",
+  "version": "1.0.0",
+  "description": "Power-user archival and code extraction suite for claude.ai conversations. Export chats to Markdown or extract all code blocks as a ZIP archive.",
+  "author": "Senior Staff Front-End Architect",
 
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+
+  "host_permissions": [
+    "https://claude.ai/*"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": ["https://claude.ai/*"],
+      "js": [
+        "lib/jszip.min.js",
+        "export_utils.js",
+        "content_script.js"
+      ],
+      "css": [],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": ["styles.css", "lib/jszip.min.js"],
+      "matches": ["https://claude.ai/*"]
+    }
+  ]
+}
